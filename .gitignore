@@ -1,0 +1,13 @@
+<<<<<<< HEAD
+env.py
+.DS_Store
+.ipynb_checkpoints/
+__pycache__
+*.csv
+*.json
+=======
+*.csv
+.DS_Store
+.ipynb_checkpoints/
+__pycache__
+>>>>>>> 600101351ccb2f096bcfb9b84a9731d135685aeb
