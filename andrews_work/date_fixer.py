@@ -206,7 +206,7 @@ def echoroukonline_date(date_entry):
 #             return 'invalid'
 #     return df
 
-def main(dataframe):
+def make_datetime(dataframe):
     # This function works, ignore the one above
     df = dataframe.dropna()
     months_map = {'يناير':'01',
@@ -236,43 +236,43 @@ def main(dataframe):
 
         if df.iloc[i].source == 'SaudiYoum':
             date_list.append(saudiyoum_date(df.iloc[i]['dateline']))
-            print(df.id.iloc[i] + 'successful')
+            print(df.id.iloc[i] + ' successful')
             
         elif df.iloc[i].source == 'Techreen':
             date_list.append(techreen_date(df.iloc[i]['dateline']))
-            print(df.id.iloc[i] + 'successful')
+            print(df.id.iloc[i] + ' successful')
 
         elif df.iloc[i].source == 'Youm7':
             date_list.append(youm7_date(df.iloc[i]['dateline'], m_maps))
-            print(df.id.iloc[i] + 'successful')
+            print(df.id.iloc[i] + ' successful')
 
         elif df.iloc[i].source == 'Alittihad':
             date_list.append(alittihad_date(df.iloc[i]['dateline'], m_maps))
-            print(df.id.iloc[i] + 'successful')
+            print(df.id.iloc[i] + ' successful')
 
         elif df.iloc[i].source == 'Almustaqbal':
             date_list.append(almustaqbal_date(df.iloc[i]['dateline']))
-            print(df.id.iloc[i] + 'successful')
+            print(df.id.iloc[i] + ' successful')
 
         elif df.iloc[i].source == 'Ryiadh':
             date_list.append(ryiadh_date(df.iloc[i]['dateline'], m_maps))
-            print(df.id.iloc[i] + 'successful')
+            print(df.id.iloc[i] + ' successful')
 
         elif df.iloc[i].source == 'Alqabas':
             date_list.append(alqabas_date(df.iloc[i]['dateline']))
-            print(df.id.iloc[i] + 'successful')
+            print(df.id.iloc[i] + ' successful')
 
         elif df.iloc[i].source == 'Almasryalyoum':
             date_list.append(almasryalyoum_date(df.iloc[i]['dateline']))
-            print(df.id.iloc[i] + 'successful')
+            print(df.id.iloc[i] + ' successful')
 
         elif df.iloc[i].source == 'Sabanews':
             date_list.append(sabanews_date(df.iloc[i]['dateline'], m_maps))
-            print(df.id.iloc[i] + 'successful')
+            print(df.id.iloc[i] + ' successful')
             
         elif df.iloc[i].source == 'Echoroukonline':
             date_list.append(echoroukonline_date(df.iloc[i]['dateline']))
-            print(df.id.iloc[i] + 'successful')
+            print(df.id.iloc[i] + ' successful')
     df['dateline'] = pd.to_datetime(date_list)
     df = df.dropna()
     return df
