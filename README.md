@@ -50,11 +50,16 @@ ___
 
 ## <a name="wrangle"></a>Data Acquisition and Preparation
   
- ## Acquire
+## Acquire
+- All data was sourced from the [Abu El-Khair Corpus](http://abuelkhair.net/index.php/en/arabic/abu-el-khair-corpus)
+    - Includes more than five million Arabic news articles from 2000-2014
+- Downloaded 10 separate XML files containing all the articles (~ 20 GB)
 
-  
 ## Prepare
-
+- Parse through each individual XML file and convert to CSV files
+- Filter articles for relevant topics pertaining to America
+- Combine all results into a single CSV with topics tagged in a new feature column
+- 
 [[Back to top](#top)]
 
 
