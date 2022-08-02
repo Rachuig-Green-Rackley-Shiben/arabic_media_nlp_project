@@ -28,9 +28,9 @@ ___
  ### Deliverables:
 [X] Clean Repo
 
-[] Final Notebook
-
 [X] README.md
+
+[] Final Notebook
 
 [] Scripting Files
 
