@@ -50,17 +50,37 @@ ___
 
 ## <a name="wrangle"></a>Data Acquisition and Preparation
   
- ## Acquire
+## Acquire
+- All data was sourced from the [Abu El-Khair Corpus](http://abuelkhair.net/index.php/en/arabic/abu-el-khair-corpus)
+    - Includes more than five million Arabic news articles from 2000-2014
+- Downloaded 10 separate XML files containing all the articles (~ 20 GB)
 
-  
+[[Back to top](#top)]
+
 ## Prepare
+- Parse through each individual XML file and convert to CSV files
+- Filter articles for relevant topics pertaining to America
+- Combine all results into a single CSV with topics tagged in a new feature column
+- Drop nulls from the dataset
+- Clean dates and create datetime column for exploration
+- Clean the articles:
+  - Normalize the Arabic text
+  - Remove all non text characters
+  - Remove all diacritical marks (هركات)
+  - Tokenize the text
+- Run sentiment analysis using Camel_Tools to gauge sentiment of the article text and the headline
 
 [[Back to top](#top)]
 
 
   
 ## <a name="explore"></a>Data Exploration:
-  ###  Explore
+##  Explore
+- Explore on the data using various Natural Language Processing techniques
+- Create visualizations of discoveries
+- Hypothesis test ideas
+- Feature Engineering
+  - Add new features derived from discoveries made during Exploration
 
  
 [[Back to top](#top)]
