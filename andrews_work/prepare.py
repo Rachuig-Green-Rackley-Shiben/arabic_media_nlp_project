@@ -57,6 +57,3 @@ def country_tagger(df):
     df['country'] = df.source.map(country_map)
     return df
 
-df = pd.read_csv('/Users/amanda22/codeup-data-science/arabic_media_nlp_project/andrews_work/all_articles.csv')
-
-clean_text(df)
