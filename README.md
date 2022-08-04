@@ -48,6 +48,7 @@ ___
 
 ## <a name="dictionary"></a>Data Dictionary  
 [[Back to top](#top)]
+
 id | non-null | object        
 url | non-null | object        
 headline |non-null | object        
