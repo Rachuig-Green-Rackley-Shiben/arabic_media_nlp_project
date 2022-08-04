@@ -48,6 +48,17 @@ ___
 
 ## <a name="dictionary"></a>Data Dictionary  
 [[Back to top](#top)]
+ 2   id | non-null | object        
+ 3   url | non-null | object        
+ 4   headline |non-null | object        
+ 5   dateline |non-null | datetime64[ns]
+ 6   text |non-null | object        
+ 7   tags |non-null | object        
+ 8   source | non-null | object        
+ 9   text_label | non-null | object        
+ 10  text_score | non-null | object        
+ 11  headline_label | non-null | object        
+ 12  headline_score | non-null | float64 
 
 
 ***
