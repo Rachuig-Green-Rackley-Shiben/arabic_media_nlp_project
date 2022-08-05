@@ -26,15 +26,11 @@ ___
   
   
  ### Deliverables:
-[X] Clean Repo
-
-[X] README.md
-
-[] Final Notebook
-
-[] Scripting Files
-
-[] Google Slides (~10-25 for presentation)
+- [x] Clean Repo
+- [x] README.md
+- [] Final Notebook
+- [] Scripting Files
+- [] Google Slides (~10-25 for presentation)
 
 ###  Executive Summary: 
 
