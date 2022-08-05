@@ -22,7 +22,7 @@ ___
   
   
  ### Project Goals: 
-
+The goal of this project is to use the data we have acquired from our sources to build a classification model that can help predict an articles sentiment towards America. Through exploration using Natural Language Processing (NLP) and data visualizations, we want to find trends that will help us determine features to use in our model that will help us predict sentiment. By using NLP, we can deep dive into features further to even find correlations between specific words and sentiment that will help our predictions.
   
   
  ### Deliverables:
@@ -37,7 +37,12 @@ ___
   
         
 ### Initial Hypothesis/Questions: 
-
+- What’s the relationship between article sentiment and world events? (Post MVP)
+- What is the relationship between news sources and the target? 
+- What is the relationship between country of source and target?
+- What is the relationsheep between tag and target?
+- Is there a relationship between time and sentiment?
+- Is there a relationship between sentiment of the headline and sentiment of text?
 
 [[Back to top](#top)]
 
