@@ -63,6 +63,20 @@ headline_label | non-null | object
 headline_score | non-null | float64 
 
 
+|Column Name|Datatype|Definition|
+|:-------|:--------|:----------|
+| id       | object |    id of article |
+| url       | object |    URL to article |
+| headline       | object |    Headline to article |
+| dateline       | datetime64[ns] |    Date/Time article was published |
+| text      | object |   Text in article |
+| tags       | object |    Tags for article |
+| source | object |  |
+| text_label | object |  |
+| text_score | object |  |
+| headline_label | object |  |
+| headline_score | object |  | 
+
 ***
 
 ## <a name="wrangle"></a>Data Acquisition and Preparation
