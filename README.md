@@ -50,18 +50,19 @@ The goal of this project is to use the data we have acquired from our sources to
 ## <a name="dictionary"></a>Data Dictionary  
 [[Back to top](#top)]
 
-id | non-null | object        
-url | non-null | object        
-headline |non-null | object        
-dateline |non-null | datetime64[ns]
-text |non-null | object        
-tags |non-null | object        
-source | non-null | object        
-text_label | non-null | object        
-text_score | non-null | object        
-headline_label | non-null | object        
-headline_score | non-null | float64 
-
+|Column Name|Datatype|Definition|
+|:-------|:--------|:----------|
+| id       | object |    id of article |
+| url       | object |    URL to article |
+| headline       | object |    Headline to article |
+| dateline       | datetime64[ns] |    Date/Time article was published |
+| text      | object |   Text in article |
+| tags       | object |    Tags for article |
+| source | object | Website/newspaper that published the article |
+| text_label | object |  |
+| text_score | object |  |
+| headline_label | object |  |
+| headline_score | object |  | 
 
 ***
 
