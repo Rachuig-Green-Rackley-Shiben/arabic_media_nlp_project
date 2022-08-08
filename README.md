@@ -58,7 +58,7 @@ The goal of this project is to use the data we have acquired from our sources to
 | dateline       | datetime64[ns] |    Date/Time article was published |
 | text      | object |   Text in article |
 | tags       | object |    Tags for article |
-| source | object |  |
+| source | object | Website/newspaper that published the article |
 | text_label | object |  |
 | text_score | object |  |
 | headline_label | object |  |
