@@ -60,9 +60,9 @@ The goal of this project is to use the data we have acquired from our sources to
 | tags       | object |    Tags for article |
 | source | object | Website/newspaper that published the article |
 | text_label | object |  |
-| text_score | object |  |
+| text_score | object | sentiment score for text in article |
 | headline_label | object |  |
-| headline_score | object |  | 
+| headline_score | object | sentiment score for headline of an article | 
 
 ***
 
