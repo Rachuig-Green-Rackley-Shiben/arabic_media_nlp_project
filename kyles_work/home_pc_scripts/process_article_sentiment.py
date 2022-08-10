@@ -9,8 +9,6 @@ import numpy as np
 import torch.cuda
 
 
-
-
 """ 
 Change name to which file you're doing sentiment analysis on, NOT including the '.csv' 
 Output file will be 'labeled_<filename>.csv'
