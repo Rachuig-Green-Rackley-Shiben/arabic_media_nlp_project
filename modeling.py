@@ -1,9 +1,7 @@
 from attr import validate
 from regex import E
 from sklearn.neighbors import KNeighborsClassifier
-import prepare
-import acquire
-import exploration
+
 import scipy.stats as stats
 import pandas as pd
 import numpy as np
@@ -597,37 +595,6 @@ def encode_data():
     encoded.text_label = encoded.text_label.map({'neutral': 0, 'negative': -1, 'positive': 1})
 
     return encoded
-
-def model_train_val_test(encoded_df):
-    train, validate, test = split.train_validate_test_split(encoded_df, 'text_label')
-    clf = RandomForestClassifier(max_depth=14, min_samples_leaf=1)
-
-    x_train = train.drop(columns='text_label')
-    y_train = train['text_label']
-    
-    x_validate = validate.drop(columns='text_label')
-    y_validate = validate['text_label']
-
-    x_test = test.drop(columns='text_label')
-    y_test = test['text_label']
-
-    clf.fit(x_train, y_train)
-
-    x_predic = clf.predict(x_test)
-    train_score = clf.score(x_train, x_train)
-    validate_score = clf.score(x_validate, y_validate)
-    test_score = clf.score(x_test, y_test)
-    
-    results = pd.DataFrame({
-        'model': 'random_forests',
-        'depth': '14',
-        'min_sample_leaf': '1',
-        'train_acc': round(train_score * 100,1),
-        'validate_acc': round(validate_score * 100,1),
-        'test_acc': round(test_score * 100, 1)
-        })
-    
-    return results, clf
 
 
 def encode_and_model():
