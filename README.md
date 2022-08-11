@@ -29,7 +29,7 @@ The goal of this project is to use the data we have acquired from our sources to
 - [x] Clean Repo
 - [x] README.md
 - [] Final Notebook
-- [] Scripting Files
+- [x] Scripting Files
 - [] Google Slides (~10-25 for presentation)
 
 ###  Executive Summary: 
@@ -37,12 +37,23 @@ The goal of this project is to use the data we have acquired from our sources to
   
         
 ### Initial Hypothesis/Questions: 
-- What’s the relationship between article sentiment and world events? (Post MVP)
-- What is the relationship between news sources and the target? 
-- What is the relationship between country of source and target?
-- What is the relationsheep between tag and target?
-- Is there a relationship between time and sentiment?
-- Is there a relationship between sentiment of the headline and sentiment of text?
+Through NLP exploration:
+    - What is the frequency of sentiment labels (negative, positive, neutral) per news source?
+    - What is the subject matter of the majority of articles per source?
+    - What topics do news sources cover most frequently?
+
+Through Time Series analysis:
+    - How does article sentiment change over time?
+    - Is there a relationship between article sentiment and world events?
+    - How does the sentiment of Techreen aricles over time compare to Non-Techreen articles?
+
+Through exploration of drivers of article sentiment:
+    - What (if any) is the relationship between news sources & country to article sentiment?
+    - What (if any) is the relationship between tag (article topic) to article sentiment?
+    - Are there any sources that have change in sentiment based on president tag?
+    - What (if any) is the relationship of the top 3 occuring tags (excluding president names) and article sentiment by individual news sources?
+    - What (if any) is the relationship between Ramadan to article sentiment?
+
 
 [[Back to top](#top)]
 
