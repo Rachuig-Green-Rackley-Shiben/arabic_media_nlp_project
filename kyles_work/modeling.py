@@ -13,6 +13,9 @@ import split
 import matplotlib.pyplot as plt
 import itertools
 
+import datetime as dt
+from sklearn.preprocessing import MinMaxScaler
+
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.impute import SimpleImputer
@@ -451,7 +454,192 @@ class Results:
         
         return fin_df
 
+def model_train_val_test(encoded_df):
+    train, validate, test = split.train_validate_test_split(encoded_df, 'text_label')
+    clf = RandomForestClassifier(max_depth=14, min_samples_leaf=1, random_state=0)
+
+    x_train = train.drop(columns='text_label')
+    y_train = train['text_label']
     
-        
-        
-        
+    x_validate = validate.drop(columns='text_label')
+    y_validate = validate['text_label']
+
+    x_test = test.drop(columns='text_label')
+    y_test = test['text_label']
+
+    clf.fit(x_train, y_train)
+
+    train_score = clf.score(x_train, y_train)
+    validate_score = clf.score(x_validate, y_validate)
+    test_score = clf.score(x_test, y_test)
+    
+    results = pd.DataFrame({
+        'model': 'random_forests',
+        'depth': '14',
+        'min_sample_leaf': '1',
+        'train_acc': round(train_score * 100,1),
+        'validate_acc': round(validate_score * 100,1),
+        'test_acc': round(test_score * 100, 1)
+        }, index=range(1))
+    
+    return results, clf
+
+def encode_data():
+
+    df = pd.read_csv('final_df.csv')
+    df.dateline = df.dateline.astype('datetime64')
+
+    def is_gov_controlled(entry):
+        if entry in ['Alqabas', 'Echoroukonline', 'Ryiadh', 'Saudiyoum', 'Almustaqbal', 'Youm7', 'Almasryalyoum']:
+            return 1
+        else:
+            return 0
+
+    df['ownership_status'] = df.source.apply(is_gov_controlled)
+
+
+    def encode_values(df, columns_to_encode):
+        '''
+        This function takes in a prepared dataframe and using one-hot encoding, encodes categorical variables. It does not drop the original
+        categorical columns. This is done purposefully to allow for easier Exploratory Data Analysis.  Removal of original categorical columns
+        will be done in a separate function later if desired.
+        Parameters: df - a prepared dataframe with the expected feature names and columns
+        Returns: encoded - a dataframe with all desired categorical columns encoded.
+        '''
+        dummies_list = columns_to_encode
+
+        dummy_df = pd.get_dummies(df[dummies_list], drop_first=False)
+        encoded = pd.concat([df, dummy_df], axis = 1)
+        return encoded
+
+    def country_tagger(df):
+        country_map = { 'Alittihad': 'emirates',
+                        'Echoroukonline': 'algeria',
+                        'Ryiadh': 'ksa',
+                        'SaudiYoum': 'ksa',
+                        'Techreen': 'syria',
+                        'Alqabas': 'kuwait',
+                        'Almustaqbal': 'lebanon',
+                        'Almasryalyoum': 'egypt',
+                        'Youm7': 'egypt',
+                        'Sabanews': 'yemen',
+                        }
+        df['country'] = df.source.map(country_map)
+        return df
+
+    def within_30_days(df_dateline, date):
+
+        if (df_dateline - date).days < 30 and (df_dateline - date).days > -30:
+            return 1
+        else:
+            return 0
+
+    important_dates = {
+        'september_11th': pd.to_datetime('09-11-2001'),
+        'capture_of_baghdad': pd.to_datetime('04-09-2003'),
+        'nick_berg': pd.to_datetime('05-12-2004'),
+        'iran_nulcear': pd.to_datetime('08-30-2006'),
+        'arab_spring': pd.to_datetime('12-20-2011')
+    }
+
+    for event, date in important_dates.items():
+        df[event] = df.dateline.apply(within_30_days, args = (date,))
+
+    df = country_tagger(df)
+
+
+    def encode_tags(df):
+
+        list_of_tags = []
+        for tag in df.tags.values:
+            list_of_tags.extend([val[1:-1] for val in tag[1:-1].split(', ')])
+
+        tag_list = list(set(list_of_tags))
+
+        for tag in tag_list:
+            df[tag] = 0
+
+        for i, tag in enumerate(df.tags):
+            for t in tag_list:
+                if t in tag:
+                    df[t].iloc[i] = 1
+
+        return df
+
+
+    df = encode_tags(df)
+
+    df.head()
+    #print('encoding...')
+    encoded = encode_values(df, ['source', 'country'])
+    encoded.head()
+
+    #print('scaling...')
+    df['scaled_date'] = (df.dateline.astype('datetime64') - pd.Timestamp("1970-01-01")) // pd.Timedelta('1s')
+
+    scaler = MinMaxScaler()
+
+    scaler.fit(df[['scaled_date']])
+
+    df['scaled_date'] = scaler.transform(df[['scaled_date']])
+    #print('encoding...')
+
+    #print('dropping non-encoded columns')
+
+    tags_to_drop = ['id', 'url', 'headline', 'dateline', 'text', 'tags', 'source', 'text_score', 'headline_label', 'headline_score', 'country']
+
+    encoded = encoded.rename(columns={'scaled_date': 'scaled_pub_date'})
+
+    encoded = encoded.drop(columns=tags_to_drop)
+    #print('splitting...')
+    encoded.text_label = encoded.text_label.map({'neutral': 0, 'negative': -1, 'positive': 1})
+
+    return encoded
+
+def model_train_val_test(encoded_df):
+    train, validate, test = split.train_validate_test_split(encoded_df, 'text_label')
+    clf = RandomForestClassifier(max_depth=14, min_samples_leaf=1)
+
+    x_train = train.drop(columns='text_label')
+    y_train = train['text_label']
+    
+    x_validate = validate.drop(columns='text_label')
+    y_validate = validate['text_label']
+
+    x_test = test.drop(columns='text_label')
+    y_test = test['text_label']
+
+    clf.fit(x_train, y_train)
+
+    x_predic = clf.predict(x_test)
+    train_score = clf.score(x_train, x_train)
+    validate_score = clf.score(x_validate, y_validate)
+    test_score = clf.score(x_test, y_test)
+    
+    results = pd.DataFrame({
+        'model': 'random_forests',
+        'depth': '14',
+        'min_sample_leaf': '1',
+        'train_acc': round(train_score * 100,1),
+        'validate_acc': round(validate_score * 100,1),
+        'test_acc': round(test_score * 100, 1)
+        })
+    
+    return results, clf
+
+
+def encode_and_model():
+    encoded = encode_data()
+
+    features = ['source_Techreen', 'country_syria', 'source_Almasryalyoum', 'country_emirates', 'source_Alittihad', 'source_Youm7', 'source_SaudiYoum', 'country_yemen', 'source_Sabanews', 'country_ksa', 'capture_of_baghdad', 'ownership_status', 'source_Alqabas', 'country_kuwait', 'nick_berg', 'text_label']
+
+    words = 'بوش, أمريكا, غوغل, تشيني, حرب الخليج'
+    words = words.split(', ')
+    features.extend(words)
+
+    to_remove = ['country_syria', 'source_Alittihad', 'source_Sabanews']
+    [features.remove(x) for x in to_remove]
+
+
+    results, clf = model_train_val_test(encoded[features])
+    return results
