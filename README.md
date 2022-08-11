@@ -71,9 +71,9 @@ The goal of this project is to use the data we have acquired from our sources to
 | text      | object |   Text in article |
 | tags       | object |    Tags for article |
 | source | object | Website/newspaper that published the article |
-| text_label | object |  |
+| text_label | object | the text within the article which is categorized as either positive, negative or neutral |
 | text_score | object | sentiment score for text in article |
-| headline_label | object |  |
+| headline_label | object | the headline of the article which is categorized as either positive, negative, or neutral  |
 | headline_score | object | sentiment score for headline of an article | 
 
 ***
