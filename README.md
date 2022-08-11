@@ -37,22 +37,23 @@ The goal of this project is to use the data we have acquired from our sources to
   
         
 ### Initial Hypothesis/Questions: 
-Through NLP exploration:
-    - What is the frequency of sentiment labels (negative, positive, neutral) per news source?
-    - What is the subject matter of the majority of articles per source?
-    - What topics do news sources cover most frequently?
+<b>Through NLP exploration:</b>
 
-Through Time Series analysis:
-    - How does article sentiment change over time?
-    - Is there a relationship between article sentiment and world events?
-    - How does the sentiment of Techreen aricles over time compare to Non-Techreen articles?
+- What is the frequency of sentiment labels (negative, positive, neutral) per news source?
+- What is the subject matter of the majority of articles per source?
+- What topics do news sources cover most frequently?
 
-Through exploration of drivers of article sentiment:
-    - What (if any) is the relationship between news sources & country to article sentiment?
-    - What (if any) is the relationship between tag (article topic) to article sentiment?
-    - Are there any sources that have change in sentiment based on president tag?
-    - What (if any) is the relationship of the top 3 occuring tags (excluding president names) and article sentiment by individual news sources?
-    - What (if any) is the relationship between Ramadan to article sentiment?
+<b>Through Time Series analysis:</b>
+- How does article sentiment change over time?
+- Is there a relationship between article sentiment and world events?
+- How does the sentiment of Techreen aricles over time compare to Non-Techreen articles?
+
+<b>Through exploration of drivers of article sentiment:</b>
+- What (if any) is the relationship between news sources & country to article sentiment?
+- What (if any) is the relationship between tag (article topic) to article sentiment?
+- Are there any sources that have change in sentiment based on president tag?
+- What (if any) is the relationship of the top 3 occuring tags (excluding president names) and article sentiment by individual news sources?
+- What (if any) is the relationship between Ramadan to article sentiment?
 
 
 [[Back to top](#top)]
