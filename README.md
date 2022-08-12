@@ -88,17 +88,7 @@ The goal of this project is to use the data we have acquired from our sources to
 [[Back to top](#top)]
 
 ## Prepare
-- Parse through each individual XML file and convert to CSV files
-- Filter articles for relevant topics pertaining to America
-- Combine all results into a single CSV with topics tagged in a new feature column
-- Drop nulls from the dataset
-- Clean dates and create datetime column for exploration
-- Clean the articles:
-  - Normalize the Arabic text
-  - Remove all non text characters
-  - Remove all diacritical marks (هركات)
-  - Tokenize the text
-- Run sentiment analysis using Camel_Tools to gauge sentiment of the article text and the headline
+
 
 [[Back to top](#top)]
 
