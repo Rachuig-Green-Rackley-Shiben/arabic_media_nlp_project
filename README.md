@@ -19,6 +19,7 @@ ___
 
 
 ## <a name="project_description"></a>Project Description:
+The United States has made itself a key player in the Middle East by using its diplomatic, economic, and military power in support of national and international interests. Since the 9/11 terrorist attacks on U.S. soil, one of the most consequntial events in the modern world, tensions between the two regions have been undoubtedly high. With remarkable communication and technology enhancements in the 21st century, we've become more aware of biases portrayed in mainstream media, and Middle Eastern media is no exception. Two-thirds of Arab nationals overall say they trust mass media such as newspapers, TV, and radio to report news fully, fairly, and accurately (mideastmedia.org, 2017). Through examining almost half a million Arabic news articles between 2000 and 2014 from 10 different Middle Eastern news outlets, we can see how different factors (such as international events) may drive overall sentiment and sentiment towards America. Having this kind of insight may inform policy makers and influence decision making moving forward. This project can deliver an integral piece of the puzzle of America's foreign policy towards the world.
 
 ## <a name="planning"></a>Project Planning:
   
