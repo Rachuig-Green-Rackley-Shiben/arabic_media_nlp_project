@@ -1,5 +1,7 @@
 # <center><a name="top"></a>Arabic Media NLP Capstone Project
 
+<img src="andrews_work/final_intro_map_cropped.png">
+
 by: Andrew Rachuig, Kyle Green, Mindy Shiben, and Paige Rackley </center>
 
 
