@@ -165,4 +165,15 @@ With the current prediction score, we cannot endorse utilization of our model wi
   
   **How to Reproduce**
 - [x] Read this README.md
-- [] 
+- [x] Follow the Data Science pipeline outlined above.
+- [x] Download and install normal Data Science python libraries for use: Pandas, Seaborn, Matplotlib, Numpy, Scikit-Learn
+- [x] Download and install Camel-Tools for Arabic text manipulation. (<a href = https://camel-tools.readthedocs.io/en/latest/> See Camel-Tools documentaton.</a>)
+- [x] Download and install Transformers for further NLP tools. (<a href = https://huggingface.co/docs/transformers/index> Transformers documentation<a/>)
+- [x] Download XML files for the source articles from the <a href = http://abuelkhair.net/index.php/en/arabic/abu-el-khair-corpus > Abu El-Khair Corpus </a>.
+- [x] Use a text editor to save each XML file as a plain text file.
+- [x] Use the functions contained in our prepare.py to pull out article text and data where specific keywords are present. Use this information to save text, tags, date, and other info to a dataframe. Save the data!
+- [x] Perform sentiment analysis of text and add results to the dataframe.
+  - NB: Running the sentiment analysis requires significant CPU time and will likely take days even when only running on articles filtered for specific keywords relating to America.
+- [x] Explore the data using functions stored in our explore.py file.
+- [x] Model the data using functions stored in our modeling.py file.
+- [x] Reference our final_notebook.ipynb file to show clear steps taken to move the data through the pipeline.
