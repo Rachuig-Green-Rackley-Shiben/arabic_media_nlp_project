@@ -102,9 +102,9 @@ With the new dataframe, we used keywords related to America (e.g 'George Bush, B
 <b>Cleaning:</b>
 
     - Sentiment analysis using Camel-Tools
-    - remove unneccesary special characters
-    - delete any possible diacritical marks
-    - tokenize individual words 
+    - Remove unneccesary special characters
+    - Delete any possible diacritical marks
+    - Tokenize individual words 
 
 [[Back to top](#top)]
 
