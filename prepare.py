@@ -57,6 +57,10 @@ topics = {'America' : 'أمريكا',
 
 
 def flip_key_value_pairs(dicts):
+    '''
+    Flips key-value pairs of a dictionary and returns
+    the dictionary.
+    '''
     res = dict((v,k) for k,v in dicts.items())
     return res
 

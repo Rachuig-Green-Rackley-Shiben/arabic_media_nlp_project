@@ -18,6 +18,10 @@ from sklearn.model_selection import train_test_split
 
 
 def graph_source(df):
+    '''
+    Takes initial DataFrame as input and graphs the sentiment of Techreen, Sabanews, and all 
+    of the combined sources.
+    '''
     source_perc = pd.crosstab(df.source, df.text_label, margins=True)
     source_perc = source_perc.apply(lambda x: x / x['All'] * 100, axis=1)
     source_perc = source_perc.drop(columns=['All'])
@@ -52,19 +56,32 @@ def graph_source(df):
     #view distributions of news sources w/target
 
 def words():
+    '''
+    Loads the single word counts and returns a DataFrame.
+    '''
+
     words = pd.read_csv('single_word_counts.csv')
     return words
 
 def bigrams():
+    '''
+    Loads and returns a DataFrame of the bigrams.
+    '''
     bigrams = pd.read_csv('all_bigrams.csv')
     return bigrams 
 
 def trigrams():
+    '''
+    Loads and returns a DataFrame of the trigrams.
+    '''
     trigrams = pd.read_csv('all_trigrams.csv')
     return trigrams
 
-def print_list(list):
-    print('\n'.join(list))
+def print_list(a_list):
+    '''
+    Prints list as a string.
+    '''
+    print('\n'.join(a_list))
 
 
 def encode_values(df, columns_to_encode):
@@ -85,7 +102,11 @@ def encode_values(df, columns_to_encode):
     return encoded
 
 def encoded_time(encoded):
-
+    '''
+    Takes our encoded DataFrame and sets the index as a datetime.
+    Splits the DataFrame into pre/post 10/25/2007.
+    Returns the two DataFrames.
+    '''
     encoded = encoded.set_index('dateline').sort_index()
     encoded_1 = encoded.reset_index()
     time_1 = encoded_1[encoded_1.dateline < '2007-10-25']
@@ -97,7 +118,10 @@ def encoded_time(encoded):
 
 
 def graph_timeline(time_1, time_2):
-
+    '''
+    Takes two DataFrames split by time and graphs sentiment over time.
+    Events are also plotted and labeled.
+    '''
     plt.rcParams["figure.figsize"] = (16, 12)
     fig, ax = plt.subplots(2, 1)
     sns.lineplot(data = time_1.resample('1M').mean(), x = 'dateline', y = 'text_label_negative', label = 'neg', lw=3.5, color='tomato', ax=ax[0])
@@ -162,7 +186,10 @@ def graph_timeline(time_1, time_2):
 
 
 def graph_tech(encoded):
-
+    '''
+    Takes and encoded DataFrame and graphs the sentiment of Techreen vs All sources 
+    over time.
+    '''
     encoded = encoded.set_index('dateline').sort_index()
     techreen = encoded[encoded.source=='Techreen']
     not_tech = encoded[encoded.source!='Techreen']
@@ -203,7 +230,9 @@ def split_data(df):
 
 
 def graph_source_perc(train):
-
+    '''
+    Graphs sentiment of Techreen and Sabanews based off of tags.
+    '''
     source_perc = pd.crosstab(train.source, train.text_label, margins=True)
     source_perc = source_perc.apply(lambda x: x / x['All'] * 100, axis=1)
     source_perc = source_perc.drop(columns=['All'])
@@ -258,6 +287,9 @@ def graph_source_perc(train):
 
 
 def stat_test_1(train):
+    '''
+    Chi squared test on the source category vs the text label.
+    '''
 
     alpha =.05
 
@@ -270,7 +302,9 @@ def stat_test_1(train):
         print('Fail to reject the null hypothesis.')
 
 def stat_test_2(train):
-
+    '''
+    Chi squared test on country category vs text_label.
+    '''
     transcription_table=pd.DataFrame({'source': ['Ryiadh','SaudiYoum' ,'Almasryalyoum', 'Youm7', 'Alittihad','Echoroukonline','Techreen', 'Alqabas', 'Almustaqbal', 'Sabanews'],'country': ["Ryiadh- Saudi_Arabia",'SaudiYoum- Saudi_Arabia', 'Almasryalyoum- Egypt','Youm7- Egypt', 'Alittihad- UAE','Echoroukonline- Algeria','Techreen- Syria', 'Alqabas- Kuwait', 'Almustaqbal- Lebanon','Sabanews- Yemen']})
 
     mapping = transcription_table.set_index('source').to_dict()['country']
@@ -288,12 +322,20 @@ def stat_test_2(train):
 
 
 def flip_key_value_pairs(dicts):
+    '''
+    Takes  a dictionary and flips the key-value pairs, returns
+    the resulting dicitonary.
+    '''
     
     res = dict((v,k) for k,v in dicts.items())    
     return res
 
 
 def make_eng_tags(df_tags):
+    '''
+    Creates english tags out of the Arabic tags in the DataFrame,
+    and returns the english tags.
+    '''
     topics = {'America' : 'أمريكا',
             'American' : 'أمريكيّ',
             'American (f)' : 'أمريكيّة',
@@ -325,7 +367,9 @@ def make_eng_tags(df_tags):
 
 
 def graph_tags(top_20):
-
+    '''
+    Graphs the top 10 and 20 tags for Techreen and Sabanews.
+    '''
     top_perc = pd.crosstab(top_20.en_tags, top_20.text_label, margins=True)
     top_perc = top_perc.apply(lambda x: x / x['All'] * 100, axis=1)
     top_perc = top_perc.drop(columns=['All'])
@@ -406,6 +450,9 @@ def graph_tags(top_20):
 
 
 def stat_test_3(top_20):
+    '''
+    Chi squared test on top 20 english tags and text_label.
+    '''
     alpha =.05
     #set alpha
     observed = pd.crosstab(top_20.en_tags, top_20.text_label)
@@ -417,6 +464,10 @@ def stat_test_3(top_20):
         print('Fail to reject the null hypothesis.')
 
 def graph_pres(train):
+    '''
+    Graphs the sentiment of each president vs all presidents
+    for different sources.
+    '''
 
     train['english_tags'] = train['english_tags'].apply(lambda x: ','.join(map(str, x)))
     bush = train[(train['english_tags'] == 'Bush')]
@@ -487,6 +538,9 @@ def graph_pres(train):
 
 
 def stat_test_4(train):
+    '''
+    Chi squared test on different presidential tags and the text_label.
+    '''
     bush = train[(train['english_tags'] == 'Bush')]
     obama = train[(train['english_tags'] == 'Obama')]
     clinton = train[(train['english_tags'] == 'Clinton')]
@@ -503,6 +557,9 @@ def stat_test_4(train):
         print('Fail to reject the null hypothesis.')
 
 def graph_top_tags(train):
+    '''
+    Takes a train DataFrame and graphs the top tags.
+    '''
     train['english_tags'] = train.tags.apply(make_eng_tags)
     train['english_tags'] = train['english_tags'].apply(lambda x: ','.join(map(str, x)))
     top_20 = train[train['tags'].map(train['tags'].value_counts()) >= 720]

@@ -52,7 +52,10 @@ def all_reports(train, validate, test, target_var):
     return dt_mods, rf_mods, knn_mods, lr_mods
 
 def xy_train_validate_test(train, validate, test, target_var):
-
+    '''
+    Splits train, validate and test sets by target variable to 
+    model-compatible x and y inputs.
+    '''
     id= 'customer_id'
     
     x_train = train.drop(columns=[target_var])
@@ -68,6 +71,9 @@ def xy_train_validate_test(train, validate, test, target_var):
 
 def random_forests(train, validate, test, target_var, 
                    min_sample_leaf=3, depth=15, inverse=True):
+    '''
+    Iterates through random forest models.
+    '''
     x_train, y_train, x_validate, y_validate, X_test, Y_test = xy_train_validate_test(train,
                                                                                       validate,
                                                                                       test, 
@@ -92,6 +98,9 @@ def random_forests(train, validate, test, target_var,
     return models, reports
 
 def knearest_neightbors(train, validate, test, target_var, n_neighbors=list(range(1,15))):
+    '''
+    Iterates through knn models.
+    '''
     x_train, y_train, x_validate, y_validate, X_test, Y_test = xy_train_validate_test(train,
                                                                                       validate,
                                                                                       test, 
@@ -114,6 +123,9 @@ def knearest_neightbors(train, validate, test, target_var, n_neighbors=list(rang
 
 
 def decision_tree(train, validate, test, target_var, depth=10, loop=True):
+    '''
+    Iterates through decision tree models.
+    '''
     x_train, y_train, x_validate, y_validate, X_test, Y_test = xy_train_validate_test(train,
                                                                                       validate,
                                                                                       test, 
@@ -139,6 +151,9 @@ def decision_tree(train, validate, test, target_var, depth=10, loop=True):
 
 
 def logistic_regression(train, validate, test, target_var, c=10, solver='lbfgs'):
+    '''
+    Iterates through logistic regression models.
+    '''
     x_train, y_train, x_validate, y_validate, X_test, Y_test = xy_train_validate_test(train,
                                                                                       validate,
                                                                                       test,
@@ -163,7 +178,10 @@ def logistic_regression(train, validate, test, target_var, c=10, solver='lbfgs')
 def fit_score_train_validate(clf, num, x_train, x_validate, 
                              y_train, y_validate, model_type,
                              min_sample_leaf=""):
-
+    '''
+    Fits a model and scores it on train and validate sets, then returns the results
+    and classification reports.
+    '''
     clf = clf.fit(x_train, y_train)
     results = []
     
@@ -203,6 +221,10 @@ def make_model_stats(num, train_score, validate_score,
                      train_class_report, validate_class_report,
                      min_sample_leaf, model_type):
 
+    '''
+    Creates DataFrame-compatible dictionaries based off of model scores and parameters.
+    '''
+
     results = ({'depth': num,
                 'C': num,
                 'min_samples_leaf': min_sample_leaf, 
@@ -220,6 +242,10 @@ def make_model_stats(num, train_score, validate_score,
     return results
 
 def edit_results(results, model_type):
+    '''
+    Edits model results based off of model type and parameters,
+    returns the edited results.
+    '''
     
     if model_type[:3] == 'knn':
         del(results['depth'])
@@ -247,11 +273,17 @@ def edit_results(results, model_type):
 
 
 def make_model_results_into_df(models):
+    '''
+    Takes the model results and turns it into a DataFrame.
+    '''
     models= pd.DataFrame(models)
     
     return models
 
 def summary_results(models):
+    '''
+    Returns a summary of all models and their results.
+    '''
     summary_cols = list(models.columns)
     summary_cols.remove('model_type')
     summary_cols.remove('classification_report_train')
@@ -485,7 +517,9 @@ def model_train_val_test(encoded_df):
     return results, clf
 
 def encode_data():
-
+    '''
+    Encodes and adds features to the final DataFrame loaded from final_df.csv
+    '''
     df = pd.read_csv('final_df.csv')
     df.dateline = df.dateline.astype('datetime64')
 
