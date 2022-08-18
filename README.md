@@ -19,7 +19,7 @@ ___
 
 
 ## <a name="project_description"></a>Project Description:
-The United States has made itself a key player in the Middle East by using its diplomatic, economic, and military power in support of national and international interests. Since the 9/11 terrorist attacks on U.S. soil, one of the most consequntial events in the modern world, tensions between the two regions have been undoubtedly high. With remarkable communication and technology enhancements in the 21st century, we've become more aware of biases portrayed in mainstream media, and Middle Eastern media is no exception. Two-thirds of Arab nationals overall say they trust mass media such as newspapers, TV, and radio to report news fully, fairly, and accurately (mideastmedia.org, 2017). Through examining almost half a million Arabic news articles between 2000 and 2014 from 10 different Middle Eastern news outlets, we can see how different factors (such as international events) may drive overall sentiment and sentiment towards America. Having this kind of insight may inform policy makers and influence decision making moving forward. This project can deliver an integral piece of the puzzle of America's foreign policy towards the world.
+The United States has made itself a key player in the Middle East by using its diplomatic, economic, and military power in support of national and international interests. Since the 9/11 terrorist attacks on U.S. soil, one of the most consequntial events in the modern world, tensions between the two regions have been undoubtedly high. With remarkable communication and technology enhancements in the 21st century, we've become more aware of biases portrayed in mainstream media, and Middle Eastern media is no exception. Two-thirds of Arab nationals overall say they trust mass media such as newspapers, TV, and radio to report news fully, fairly, and accurately (mideastmedia.org, 2017). Using a set of 5.2 million Arabic news articles written between 2000 and 2014 from 10 different Middle Eastern news outlets, we can see how different factors (such as international events) may drive overall sentiment and sentiment towards America. Having this kind of insight may inform policy makers and influence decision making moving forward. This project can deliver an integral piece of the puzzle of America's foreign policy towards the world.
 
 ## <a name="planning"></a>Project Planning:
   
@@ -36,7 +36,7 @@ The goal of this project is to use the data we have acquired from our sources to
 - [x] Google Slides (~10-25 for presentation)
 
 ###  Executive Summary: 
-Using our sentiment analysis tool (BERT), we discovered that approximently 73% of articles relating to America have a neutral sentiment, 23% were negative, and 4% were positive. 
+Using our sentiment analysis tool (Camel-BERT), we discovered that approximently 73% of articles relating to America have a neutral sentiment, 23% were negative, and 4% were positive. 
 
 Through exploration using Time Series analysis and Natural Language Processing (NLP), we also discovered notable outliers in sentiment from news sources and that some world events might have a relationship with article sentiment swings.
 
@@ -95,24 +95,33 @@ Our Random Forest model beat the baseline of 72.6% with an accuracy of 73.9%. Th
 [[Back to top](#top)]
 
 ## Prepare
-Preparation for the data took a more considerable amount of effort. Upon inspection, we found that the XML contained errors, so we created a series of expressions to pull the data we needed and compiled it all into a dataframe.
+Preparation for the data took a more considerable amount of effort. Upon inspection, we found that the XML contained errors, so we created a series of regular expressions to isolate, and pull the data we needed which we then compiled into a dataframe.
 
 With the new dataframe, we used keywords related to America (e.g 'George Bush, Barack Obama, America, The United States, The White House') and came out with about 360,000 articles to isolate and explore on.
 
-<b>Cleaning:</b>
+Crucially, we also labeled each article as positive, neutral, or negative. This was done using Camel-Tools Sentiment Analyzer which runs on Pytorch and employs a pretrained model to make determinations of text. This step took approximately 55 hours.
 
-    - Sentiment analysis using Camel-Tools
-    - Remove unneccesary special characters
-    - Delete any possible diacritical marks
-    - Tokenize individual words 
+## Cleaning
+Before we could move on to exploration and modeling we had to clean the data. The following steps were undertaken:
+
+- Standardization of datetimes
+  - All sources used their own datetime system and we needed a uniform date for Time Series Analysis
+- Standardization of Arabic text and words
+  - Remove unneccesary special characters
+  - Delete any possible diacritical marks
+  - Tokenize individual words 
 
 [[Back to top](#top)]
 
 
   
 ## <a name="explore"></a>Data Exploration:
-##  Explore
+For this step we had to sift through a mountain of data to find useful takeaways.
+
 - Explore on the data using various Natural Language Processing techniques
+  - Word counts, bigrams, trigrams, unique terms by source, etc.
+- Explore on the data using various Time Series Analysis techniques
+  - Looking at sentiment over time, by source and by keywords
 - Create visualizations of discoveries
 - Hypothesis test ideas
 - Feature Engineering
@@ -122,42 +131,41 @@ With the new dataframe, we used keywords related to America (e.g 'George Bush, B
 [[Back to top](#top)]
 
 ### Takeaways from exploration:
-Through exploration, we were able to get a sense of how news sources presented specific topics to its readers. From the information present in the dataset alone we cannot determine a causal relationship and say that topics related to America are causing the sentiment, but we can show a relationship between certain topics, words, publications, events, and sentiment. 
+From our exploration we were able to get a sense of how news sources presented specific topics to its readers. From the information present in the dataset alone we cannot determine a causal relationship and say that topics related to America are causing the sentiment, but we can show a relationship between certain topics, words, publications, events, and sentiment. 
 
 A major takeaway that we found was that it seems rather obvious that Techreen either has a negative bias when America related topics are discussed OR it selects to write more about negative things when discussing America.
 
 ## <a name="model"></a>Modeling:
 <b> Looking at the baseline we need to beat:</b>
+
 Before we model, we establish our baseline by picking the most frequently occurring target. In this case, neutral appears 72.6% of the time, making our baseline accuracy 72.6%. Anything higher than this means our model is more predictive.
 
 <b>How did we decide our model?</b>
-After creating 150 different models, we came to the conlcusion that random forests models were performing best. These are shown above. By minimizing the difference in train and validate accuracy in the random forest model, we have a model that is generalizable and not overfitting. 
 
-Our final model has a depth of 14, and a minimum sample leaf of one. After choosing our model, we can run it on our test set.
+After creating 150 different models, we came to the conlcusion that random forests models were performing best. By minimizing the difference in train and validate accuracy in the random forest model, the result is a model that is generalizable and not overfit. 
+
+Our final model has a depth of 14, and a minimum sample leaf of one. After selecting this as our best model, we ran it on out of sample data.
 
 <b>Results:</b>
-Our final result is that our model had an accuracy of **73.9%** on our test set.
+Our final result is that our model had an accuracy of **73.9%** on out of sample data.
   
 [[Back to top](#top)]
 
 
 
 ## <a name="conclusion"></a>Conclusion:
-  
- # Conclusion:
 
-> * Our model had an accuracy of **73.9%** on our test set, beating baseline by **1.8%**.
-> * Our model is a Random Forest Classification Model, with a depth of 14 and a minimum sample leaf of one.
-> * Although our model beats baseline, we do not feel confident enough to recommend it without further exploring other potential features.
-
-
-  
-### With more time:
-    - improve predictive ability by finding more valuable features to pass into the model.
-    - acquire news articles written in English and Arabic by the same news source to compare the sentiment by language. 
+- With an accuracy of **73.9%** on out of sample data, our model beats baseline by **1.8%** which is not strong enough and thus we do not feel confident to recommend it without further exploring other potential features.
     
-## Recomendations: 
+## Recommendations: 
 With the current prediction score, we cannot endorse utilization of our model with the current set of features to predict sentiment. However, our model did give us insight into understanding how certain factors played into sentiment and this fueled further exploration of the textual data. Specifically, it reinforced findings about news sources and countries as well highlighted which keywords and events were the most impactful.
+
+That said, we do recommend using our analysis and findings as an informative tool to help assess and potentially improve America's relations with the Middle East.
+
+### Next steps:
+
+- improve predictive ability by finding more valuable features to pass into the model.
+- acquire news articles written in English and Arabic by the same news source to compare the sentiment by language. 
 ####
 
 [[Back to top](#top)]
